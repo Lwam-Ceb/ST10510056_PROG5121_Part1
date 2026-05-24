@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 //Updated Part 2
 public class MainApp {
-      public static void main(String[] args) {
+      public static void main(String[] args) { 
           
           //Scanner allows for information to be typed in
           Scanner input = new Scanner(System.in);
@@ -39,6 +39,11 @@ public class MainApp {
           // Part 1: Login Point
           System.out.println("\n=== USER LOGIN ===");
           
+          boolean loggedIn = false;
+          
+          while (!loggedIn) {
+              
+          
           System.out.print("Enter a username ");
           String loginUsername = input.nextLine();
           
@@ -46,23 +51,29 @@ public class MainApp {
           String loginPassword = input.nextLine();
           
           //Calls in LoginUser which checks if details match
-          boolean loggedIn = login.loginUser(loginUsername, loginPassword);
+          loggedIn = login.loginUser(loginUsername, loginPassword);
           
           //Print out the correct login message
           String loginMessage = login.returnLoginStatus(loggedIn);
           System.out.println(loginMessage);
           
-         // Open if the user if login is sucessful
+          //Part 2: Messaging (If you logged in)
+          // Open if the user if login is sucessful
           if (loggedIn) {
               
+              System.out.println("Incorrect login details. Please try again.\n");
               
-              System.out.println("\nWelcome to ChatApp.");
+          }
+          }
+              //Show a Welcome Message
+              System.out.println("Welcome to ChatApp.");
               
               //Lets the user pick a number
-              int choice = 0;
+              boolean running = true;
+              
               
                //The menu loops till 3 is chosen (Ends loop)
-            while (choice != 3) {
+            while (running) {
                 
                 //Shows the Menu
                 System.out.println("\n=== CHAT APP MENU ===");
@@ -76,48 +87,89 @@ public class MainApp {
                 //User selects their choice
                 System.out.print("Choose an option: ");
                 
-                choice = input.nextInt();
+                // Prevent crash if user types letters
+            if (!input.hasNextInt()) {
+                
+                System.out.println("Invalid input. Please enter 1, 2, or 3.");
+                
+                // clears invalid input
+                input.nextLine();
+                
+                continue;
+            }
 
+                int choice = input.nextInt();
+                
                 input.nextLine();
                 
                //Implements a switch option and shows these options based on your choice 
                 switch (choice) {
                     
+                    //Picking 1:
                     case 1:
                         
                         //Picking option 1 will show this message
-                        System.out.println("Send Messages selected.");
+                        System.out.print("How many messages would you like to send? ");
+                        
+                        // Store number of messages
+                        int numMessages = input.nextInt();
+                        
+                        // Clear scanner buffer
+                        input.nextLine();
+                        
+                        // For loop runs exactly numMessages times
+                        for (int i = 0; i < numMessages; i++) {
+                            
+                            // Message number shown to the user
+                            int messageNumber = i + 1;
+                            
+                            // Display message heading
+                            System.out.println("\n--- Message " + messageNumber + " ---");
+                            
+                            // Ask the user to type a message
+                            System.out.print("Enter your message: ");
+                            String message = input.nextLine();
+                            
+                            // Display sent message confirmation
+                            System.out.println("Message sent: " + message);
+                            
+                        }
+                        
                         
                         break;
                     
+                    //Picking 2:    
                     case 2:
                         
-                        //Picking option 1 will show this message
-                        System.out.println("Recently Sent Messages selected.");
+                        //Picking option 2 will show that this is in development
+                        System.out.println("Coming Soon.");
+                       
                         break;
                     
+                    //Picking 3:    
                     case 3:
                         
                         //Picking option 3 will show this message
                         System.out.println("Goodbye.");
                         
+                        // Stops the while loop
+                        running = false;
+                    
                         break;   
                         
                     default:
                         
                         //Pick an option not on the menu
-                        System.out.println("Invalid option. Try again.");
+                        System.out.println("Invalid option. Please choose 1, 2, or 3.");
+                       
+                        break;
                         
                 }
             }
-          }else{
-                       //If login failed
-                       System.out.println("Login failed. Exiting application.");
-                       
-          }
+          
           
                 //Close scanner
                 input.close();
-      }
+     }
   
-}
+      }
