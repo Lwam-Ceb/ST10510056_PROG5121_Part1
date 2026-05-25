@@ -170,7 +170,8 @@ public class Messages {
                     
                 
                 sendStatus = "Sent"; // Update status to sent
-                messagesList.add(this); //Will be added to array list
+                
+                messagesList.add(this); //Only sent messages will count
                 
                 return "Message successfully sent.";
                 
@@ -179,7 +180,7 @@ public class Messages {
                     
                     
                 sendStatus = "Stored"; //Updates status to stored
-                messagesList.add(this); //Will be added to array list
+                messagesList.add(this); //Stored messages also count
                 storeMessage();// Stores message to the JSon file
                 
                 return "Message successfully stored.";
@@ -190,7 +191,7 @@ public class Messages {
                     
                 sendStatus = "Disregarded";//Updates status to Disregarded
                 
-                return "Message disregarded.";//Will be added to array list
+                return "Press 0 to delete the message.";
                 
                 default:
                 return "Invalid option selected.";
@@ -237,9 +238,6 @@ public class Messages {
                     .append(msg.messageText)
                     .append("\n");
 
-            output.append("Status: ")
-                    .append(msg.sendStatus)
-                    .append("\n");
 
             output.append("---------------------------------\n");
             

@@ -66,7 +66,7 @@ public class MainApp {
           }
           }
               //Show a Welcome Message
-              System.out.println("Welcome to ChatApp.");
+              System.out.println("=====Welcome to ChatApp.=======");
               
               //Lets the user pick a number
               boolean running = true;
