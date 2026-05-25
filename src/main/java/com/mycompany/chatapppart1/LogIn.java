@@ -59,8 +59,8 @@ public class LogIn {
     
     // This string will check the users phonenumber on the password being no more than 12 numbers long
     
-    public boolean checkCellPhoneNumber(String phoneNumber){
-        return phoneNumber.startsWith("+27") && phoneNumber.length() ==12;
+    public boolean checkCellPhoneNumber(String phone){
+        return phone.startsWith("+27") && phone.length() <=12;
        
     } 
     
@@ -89,14 +89,22 @@ public class LogIn {
     } 
     //Allows the user to log in with the details used to register with
     public boolean loginUser(String username, String password){
+        
+        if(this.username == null || this.password == null){
+        return false;
+        
+        }
+
         return this.username.equals(username) && this.password.equals(password);
         
     }
-    //Checks if the login matches your register details
+   
+    
     public String returnLoginStatus(boolean success){
-        if(success) { //Username is related to the register information
-            return "Welcome " + username + " it is great to see you again.";
-        } else { //Username isn't related to the register information
+            
+           if(success){
+            return "Welcome" + this.username + "it is great to see you again.";
+            }else{
             return "Username or password incorrect, please try again.";
         }    
     }

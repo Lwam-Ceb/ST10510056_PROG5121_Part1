@@ -17,10 +17,16 @@ public class MainApp {
           Scanner input = new Scanner(System.in);
           //Creating an login class to call it later
           LogIn login = new LogIn();
+        
+          
+          String response;
+          boolean running = true;
+          int loginFail = 1;
           
           // Part 1: Registation Point
           System.out.println("=== USER REGISTRATION ===");
           
+          do{
           System.out.print("Enter a username ");
           String username = input.nextLine();
           
@@ -31,18 +37,23 @@ public class MainApp {
           System.out.print("Enter your South African phone number (+27...): ");
           String phone = input.nextLine();
           
-          String response = login.registerUser(username, password, phone);
+          response = login.registerUser(username, password, phone);
           
           // Shows the registraion message
           System.out.println(response);
+          
+          //Shows when registry is successful
+          } while (!response.equals("User registered successfully"));
+              
           
           // Part 1: Login Point
           System.out.println("\n=== USER LOGIN ===");
           
           boolean loggedIn = false;
           
-          while (!loggedIn) {
-              
+          //You have 3 attempts to enter the right login details
+          while(loginFail <= 3){
+         
           
           System.out.print("Enter a username ");
           String loginUsername = input.nextLine();
@@ -50,32 +61,37 @@ public class MainApp {
           System.out.print("Enter a password ");
           String loginPassword = input.nextLine();
           
-          //Calls in LoginUser which checks if details match
+          
+          //Calls in LoginUser which checks if details match with anyone whos registered
           loggedIn = login.loginUser(loginUsername, loginPassword);
           
-          //Print out the correct login message
-          String loginMessage = login.returnLoginStatus(loggedIn);
-          System.out.println(loginMessage);
-          
+          System.out.println(login.returnLoginStatus(loggedIn));
           //Part 2: Messaging (If you logged in)
           // Open if the user if login is sucessful
-          if (!loggedIn) {
+          if (loggedIn) {
               
-              System.out.println("Incorrect login details. Please try again.\n");
-              
-          }
-          }
+            
+          
               //Show a Welcome Message
               
-              System.out.println("\n================================");
-              System.out.println("Welcome to QuickChat.");
-              System.out.println("================================");
+              System.out.println("\n==============================");
+              System.out.println("Welcome to ChatApp.");
+              System.out.println("==============================");
               
+              break;
+        
+          } else{
+              //Counts the attempts you made in trying to login if you get something wrong
               
-              //Lets the user pick a number
-              boolean running = true;
-              
-              
+              System.out.println("Attempts used: " + loginFail + " / 3");
+
+              loginFail++;
+          } 
+          } 
+          if (loginFail == 3){
+            System.exit(0);
+          }
+              //================Main Menu=========================
                //The menu loops till 3 is chosen (Ends loop)
             while (running) {
                 
@@ -91,20 +107,10 @@ public class MainApp {
                 //User selects their choice
                 System.out.print("Choose an option: ");
                 
-                // Prevent crash if user types letters
-            if (!input.hasNextInt()) {
-                
-                System.out.println("Invalid input. Please enter 1, 2, or 3.");
-                
-                // clears invalid input
-                input.nextLine();
-                
-                continue;
-            }
-
+                //Allows for the user to pick a option
                 int choice = input.nextInt();
-                
                 input.nextLine();
+                
                 
                //Implements a switch option and shows these options based on your choice 
                 switch (choice) {
@@ -130,7 +136,7 @@ public class MainApp {
                         // Clear scanner buffer
                         input.nextLine();
                         
-                        // For loop runs exactly numMessages times
+                        // For loop runs exactly the amount of Message times
                         for (int i = 0; i < numMessages; i++) {
                             
                             // Message number shown to the user
@@ -154,10 +160,11 @@ public class MainApp {
                              System.out.println(msg.checkRecipientCell());
                              
                              //Validating Message length
-                             System.out.println(msg.checkMessageLength());
+                             String lengthResult = msg.checkMessageLength();
+                             System.out.println(lengthResult);
                              
                              //If the message that was written is valid then continue to select one of the options below
-                             if (msg.checkMessageLength().equals("Message ready to send.")) {
+                            if (lengthResult.equals("Message ready to send.")) {
                                  
                                  //Shows secondary menu
                                  System.out.println("\nChoose an option:");
@@ -268,3 +275,4 @@ public class MainApp {
      }
   
       }
+
