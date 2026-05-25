@@ -69,7 +69,7 @@ This project contains the following files:
 
 <img width="2538" height="1386" alt="Maven Automated build Correct" src="https://github.com/user-attachments/assets/66ea547c-829b-4e83-ba02-bf80e1a1c836" />
 
-*Maven Automatic Tests showing completion for all files. These are up and running.
+* Maven Automatic Tests showing completion for all files. These are up and running.
 
 <img width="2522" height="1426" alt="All tests completed" src="https://github.com/user-attachments/assets/2201e2f8-7de1-4ce3-814f-ac602fe190c8" />
 
