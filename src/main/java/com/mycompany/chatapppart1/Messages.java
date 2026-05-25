@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import org.json.JSONObject;
 /**
  * Messages class: represents a single chat message in the application
  * Handles message creation, validation, hashing, sending, printing
@@ -259,25 +260,46 @@ public class Messages {
              return messagesList.size(); // Returns number of messages in ArrayList
          }
          
+         /**
+         * Stores message details inside a JSON file.
+         *
+         * JSON library used:
+         * org.json
+         * https://mvnrepository.com/artifact/org.json/json
+         */
+         
          // Store Message in JSON File
          public void storeMessage() {
         
          try {
             
-             // Will Open / create JSON file
-            FileWriter writer = new FileWriter("messages.json", true);
+             // Create JSON object
+             JSONObject obj = new JSONObject();
 
-            writer.write("{\n"); // Write message details into file
-            writer.write("\"MessageID\": \"" + messageID + "\",\n");
-            writer.write("\"MessageNumber\": " + messageNumber + ",\n");
-            writer.write("\"Recipient\": \"" + recipientCell + "\",\n");
-            writer.write("\"Message\": \"" + messageText + "\",\n");
-            writer.write("\"MessageHash\": \"" + messageHash + "\",\n");
-            writer.write("\"Status\": \"" + sendStatus + "\"\n");
-            writer.write("}\n");
+            // Add values into JSON object
+            obj.put("MessageID", messageID);
+            
+            obj.put("MessageNumber", messageNumber);
+            
+            obj.put("Recipient", recipientCell);
+            
+            obj.put("Message", messageText);
+            
+            obj.put("MessageHash", messageHash);
+            
+            obj.put("Status", sendStatus);
+            
+            FileWriter writer = new FileWriter("messages.json", true);
+            
+            writer.write(obj.toString());
+            
+            writer.write("\n");
+            
 
             // Closes file
             writer.close();
+            
+            System.out.println("Message stored in JSON file.");
             
         } catch (IOException e) {
             

@@ -59,14 +59,18 @@ public class MainApp {
           
           //Part 2: Messaging (If you logged in)
           // Open if the user if login is sucessful
-          if (loggedIn) {
+          if (!loggedIn) {
               
               System.out.println("Incorrect login details. Please try again.\n");
               
           }
           }
               //Show a Welcome Message
-              System.out.println("=====Welcome to ChatApp.=======");
+              
+              System.out.println("\n================================");
+              System.out.println("Welcome to QuickChat.");
+              System.out.println("================================");
+              
               
               //Lets the user pick a number
               boolean running = true;
@@ -114,6 +118,15 @@ public class MainApp {
                         // Store number of messages
                         int numMessages = input.nextInt();
                         
+                        //Prevents number of messages from going below zero
+                        if (numMessages <= 0) {
+                            
+                            System.out.println("Please enter a number greater than 0.");
+                            
+                            break; 
+                            
+                        }
+                        
                         // Clear scanner buffer
                         input.nextLine();
                         
@@ -126,15 +139,97 @@ public class MainApp {
                             // Display message heading
                             System.out.println("\n--- Message " + messageNumber + " ---");
                             
+                            //Requires Recipents Number
+                            System.out.print("Enter recipient cellphone number: ");
+                            String recipient = input.nextLine();
+                            
                             // Ask the user to type a message
                             System.out.print("Enter your message: ");
-                            String message = input.nextLine();
+                            String messageText = input.nextLine();
                             
-                            // Display sent message confirmation
-                            System.out.println("Message sent: " + message);
+                            //Creating a message class
+                             Messages msg = new Messages(messageNumber, recipient, messageText);
+                             
+                             //Validating phone number
+                             System.out.println(msg.checkRecipientCell());
+                             
+                             //Validating Message length
+                             System.out.println(msg.checkMessageLength());
+                             
+                             //If the message that was written is valid then continue to select one of the options below
+                             if (msg.checkMessageLength().equals("Message ready to send.")) {
+                                 
+                                 //Shows secondary menu
+                                 System.out.println("\nChoose an option:");
+                                 
+                                 System.out.println("1. Send Message");
+                                 
+                                 System.out.println("2. Store Message");
+                                 
+                                 System.out.println("3. Disregard Message");
+                                 
+                                 System.out.print("Enter option: ");
+                                 
+                                 //Enter selected choice
+                                 int sendChoice = input.nextInt();
+                                 
+                                 input.nextLine();
+                                 
+                                 //Stores the returned message from the message you write in sentMessage()
+                                 String result;
+                                 
+                                 
+                                 switch (sendChoice) {
+                                     
+                                     case 1:
+                                         
+                                         //Picking option 1: sends message
+                                         result = msg.sentMessage("send");
+                                         
+                                         break;
+                                     
+                                     case 2:
+                                         
+                                         //Picking option 2: stores message
+                                         result = msg.sentMessage("store");
+                                         
+                                         break;
+                                         
+                                     case 3:
+                                         //Picking option 3: disgards message
+                                         result = msg.sentMessage("disregard");
+                                         
+                                         break;
+                                         
+                                     default:
+                                         // When an invalid option is selected
+                                         result = "Invalid option selected.";
+                                         
+                                         break;
+                                 }
+                                 
+                                 System.out.println(result);
+                                
+                                 //For when option 3 is selected to disregard the message
+                                 if (!msg.getSendStatus().equals("Disregarded")) {
+                                     
+                                     System.out.println("\n=== MESSAGE DETAILS ===");
+                                     
+                                     System.out.println("Message ID: " + msg.getMessageID());//Show message ID
+                                     
+                                     System.out.println("Message Hash: " + msg.getMessageHash());//Show Message Hash
+                                     
+                                     System.out.println("Recipient: " + msg.getRecipientCell()); //Show recipent number
+                                     
+                                     System.out.println("Message: " + msg.getMessageText());//Display written message
+                                 }
+                             }
+                            
+                            
                             
                         }
-                        
+                        // Display total messages sent or stored
+                        System.out.println("\nTotal messages sent/stored: " + Messages.returnTotalMessages());
                         
                         break;
                     
