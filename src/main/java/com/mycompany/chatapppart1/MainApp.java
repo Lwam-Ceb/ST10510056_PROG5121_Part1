@@ -88,8 +88,9 @@ public class MainApp {
               loginFail++;
           } 
           } 
-          if (loginFail == 3){
-            System.exit(0);
+          if (!loggedIn) {
+              System.out.println("Too many failed login attempts.");
+              System.exit(0);
           }
               //================Main Menu=========================
                //The menu loops till 3 is chosen (Ends loop)
