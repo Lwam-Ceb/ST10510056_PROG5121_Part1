@@ -1,4 +1,4 @@
-# **Chat Application - Part1 + Part 2**
+# **Chat Application - Part1**
 
 ## Student Information
 * Name: Lwam
