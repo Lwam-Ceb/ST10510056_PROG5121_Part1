@@ -28,6 +28,13 @@ public class Messages {
         // An array list that stores all messages while command is running
         private static ArrayList<Messages> messagesList = new ArrayList<>();
         
+        // POE Required Arrays
+        private static ArrayList<String> sentMessages = new ArrayList<>();
+        private static ArrayList<String> disregardedMessages = new ArrayList<>();
+        private static ArrayList<String> storedMessages = new ArrayList<>();
+        private static ArrayList<String> messageHashes = new ArrayList<>();
+        private static ArrayList<String> messageIDs = new ArrayList<>();
+
         /**
          * Constructor used to create a new message object.
          *
@@ -176,6 +183,12 @@ public class Messages {
                 
                 messagesList.add(this); //Only sent messages will count
                 
+                // POE Arrays
+                sentMessages.add(messageText);
+                messageHashes.add(messageHash);
+                messageIDs.add(messageID);
+                
+                
                 return "Message successfully sent.";
                 
                 
@@ -184,6 +197,11 @@ public class Messages {
                     
                 sendStatus = "Stored"; //Updates status to stored
                 messagesList.add(this); //Stored messages also count
+                
+                // Hash and ID still get added
+                messageHashes.add(messageHash);
+                messageIDs.add(messageID);
+            
                 storeMessage();// Stores message to the JSon file
                 
                 return "Message successfully stored.";
@@ -194,6 +212,9 @@ public class Messages {
                     
                 sendStatus = "Disregarded";//Updates status to Disregarded
                 
+                // POE Array
+                disregardedMessages.add(messageText);
+            
                 return "Press 0 to delete the message.";
                 
                 default:
