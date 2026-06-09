@@ -79,7 +79,7 @@ public class MessageTest {
         
         String hash = msg.getMessageHash();//Generates Hash 
         
-        assertTrue(hash.contains("HITONIGHT?"));// Checks if Hash contains needed text
+        assertTrue(hash.endsWith(":0:HITONIGHT"));// Checks if Hash contains needed text
                 
     }
     

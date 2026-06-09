@@ -146,9 +146,11 @@ public class Messages {
             
             String[] words = messageText.split(" "); // Split message into words
              
-            String firstWord = words[0]; // The First word
+            String firstWord =
+            words[0].replaceAll("[^a-zA-Z]", ""); // The First word
             
-            String lastWord = words[words.length - 1]; // Get last word and convert to uppercase
+            String lastWord =
+            words[words.length - 1].replaceAll("[^a-zA-Z]", ""); // Get last word and convert to uppercase
             
             String hash = idPart + ":" + messageNumber + ":" + firstWord + lastWord; // Step 4: Build hash
             

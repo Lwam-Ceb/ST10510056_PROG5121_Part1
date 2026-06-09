@@ -145,27 +145,44 @@ public class MainApp {
                             
                             // Display message heading
                             System.out.println("\n--- Message " + messageNumber + " ---");
-                            
-                            //Requires Recipents Number
-                            System.out.print("Enter recipient cellphone number: ");
-                            String recipient = input.nextLine();
-                            
-                            // Ask the user to type a message
-                            System.out.print("Enter your message: ");
-                            String messageText = input.nextLine();
-                            
-                            //Creating a message class
-                             Messages msg = new Messages(messageNumber, recipient, messageText);
-                             
-                             //Validating phone number
-                             System.out.println(msg.checkRecipientCell());
-                             
-                             //Validating Message length
-                             String lengthResult = msg.checkMessageLength();
-                             System.out.println(lengthResult);
-                             
-                             //If the message that was written is valid then continue to select one of the options below
-                            if (lengthResult.equals("Message ready to send.")) {
+                            String recipient;
+                            Messages msg;
+
+                            // Keep asking until recipient is valid
+                        while (true) {
+
+                        System.out.print("Enter recipient cellphone number: ");
+                        recipient = input.nextLine();
+
+                        msg = new Messages(messageNumber, recipient, "");
+
+                        String recipientResult = msg.checkRecipientCell();
+                        System.out.println(recipientResult);
+
+                        if (recipientResult.equals("Cell phone number successfully captured.")) {
+                
+                        break;
+                    }
+                }
+                             String messageText;
+
+                            while (true) {
+
+                        System.out.print("Enter your message: ");
+                            messageText = input.nextLine();
+
+                        msg = new Messages(messageNumber, recipient, messageText);
+
+                        String lengthResult = msg.checkMessageLength();
+                            System.out.println(lengthResult);
+
+                        if (lengthResult.equals("Message ready to send.")) {
+                
+                break;
+        }
+                        
+                        msg = new Messages(messageNumber, recipient, messageText);
+
                                  
                                  //Shows secondary menu
                                  System.out.println("\nChoose an option:");
@@ -245,8 +262,11 @@ public class MainApp {
                     case 2:
                         
                         //Picking option 2 will show that this is in development
-                        System.out.println("Coming Soon.");
+                        System.out.println("\\n=== SENT MESSAGE HISTORY ===");
                        
+                        System.out.println(Messages.printMessages());
+                        
+                        
                         break;
                     
                     //Picking 3:    

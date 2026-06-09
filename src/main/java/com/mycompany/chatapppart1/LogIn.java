@@ -103,7 +103,7 @@ public class LogIn {
     public String returnLoginStatus(boolean success){
             
            if(success){
-            return "Welcome " + this.username + "it is great to see you again.";
+            return "Welcome " + this.username + ", it is great to see you again.";
             }else{
             return "Username or password incorrect, please try again.";
         }    
