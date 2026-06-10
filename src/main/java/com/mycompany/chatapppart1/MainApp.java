@@ -166,24 +166,24 @@ public class MainApp {
                         break;
                     }
                 }
-                             String messageText;
+                         
+                          String messageText;
 
-                            while (true) {
+        while (true) {
+            System.out.print("Enter your message: ");
+            messageText = input.nextLine();
 
-                        System.out.print("Enter your message: ");
-                            messageText = input.nextLine();
+            msg = new Messages(messageNumber, recipient, messageText);
 
-                        msg = new Messages(messageNumber, recipient, messageText);
+            String lengthResult = msg.checkMessageLength();
+            System.out.println(lengthResult);
 
-                        String lengthResult = msg.checkMessageLength();
-                            System.out.println(lengthResult);
-
-                        if (lengthResult.equals("Message ready to send.")) {
-                
+            if (lengthResult.equals("Message ready to send.")) {
                 break;
         }
+        }
                         
-                        msg = new Messages(messageNumber, recipient, messageText);
+                        
 
                                  
                                  //Shows secondary menu
@@ -254,7 +254,7 @@ public class MainApp {
                             
                             
                             
-                        }
+                        
                         // Display total messages sent or stored
                         System.out.println("\nTotal messages sent/stored: " + Messages.returnTotalMessages());
                         
@@ -337,6 +337,8 @@ public class MainApp {
                         break;
                         
                         }
+                        
+                        break;
                         
                         
                     default:

@@ -337,8 +337,23 @@ public class Messages {
          }
          
          public static String displayLongestMessage() {
-             return "Display longest message feature coming soon.";
+             if (storedMessages.isEmpty()) {
+                 
+                 return "No stored messages available.";
+                 
+             }
+             String longest = storedMessages.get(0);
              
+             for (String message : storedMessages) {
+                 
+                 if (message.length() > longest.length()) {
+                     
+                     longest = message;
+                     
+                 }
+             }
+             
+             return "Longest stored message:\n" + longest;
          }
          
          public static String searchByMessageID(String id) {
