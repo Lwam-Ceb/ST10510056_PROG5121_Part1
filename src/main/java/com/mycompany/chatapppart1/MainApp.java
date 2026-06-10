@@ -92,6 +92,11 @@ public class MainApp {
               System.out.println("Too many failed login attempts.");
               System.exit(0);
           }
+          
+            // Load stored messages from JSON before showing menu
+            Messages.loadStoredMessages();
+            
+            
               //================Main Menu=========================
                //The menu loops till 3 is chosen (Ends loop)
             while (running) {

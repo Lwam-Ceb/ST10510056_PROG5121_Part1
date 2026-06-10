@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import org.json.JSONObject;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
 /**
  * Messages class: represents a single chat message in the application
  * Handles message creation, validation, hashing, sending, printing
@@ -332,10 +335,51 @@ public class Messages {
         }
 
     }
+         
+         public static void loadStoredMessages() {
+             
+             try {
+                 
+                 BufferedReader reader = new BufferedReader(new FileReader("messages.json"));
+                 String line;
+                 
+                 while ((line = reader.readLine()) != null) {
+                     
+                    JSONObject obj = new JSONObject(line);
+                    
+                    String message = obj.getString("Message");
+                    String recipient = obj.getString("Recipient");
+                    String messageHash = obj.getString("MessageHash");
+                    String messageID = obj.getString("MessageID");
+                    
+                    storedMessages.add(message);
+                    messageRecipients.add(recipient);
+                    messageHashes.add(messageHash);
+                    messageIDs.add(messageID);
+                 }
+                 
+                  reader.close();
+ 
+             } catch (IOException e) {
+                 System.out.println("Error reading messages file: " + e.getMessage());
+             }
+         }
     
          // ===== Part 3 Methods =====
          public static String displayStoredMessages() {
-             return "Display all stored messages feature coming soon.";
+             if (storedMessages.isEmpty()) {
+                 return "No stored messages available.";
+                 
+             }
+             
+             StringBuilder output = new StringBuilder();
+             
+             for (String message : storedMessages) {
+                 output.append(message).append("\n");
+                 
+             }
+             
+             return output.toString();
              
          }
          
