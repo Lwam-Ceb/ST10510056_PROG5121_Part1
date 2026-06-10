@@ -34,6 +34,7 @@ public class Messages {
         private static ArrayList<String> storedMessages = new ArrayList<>();
         private static ArrayList<String> messageHashes = new ArrayList<>();
         private static ArrayList<String> messageIDs = new ArrayList<>();
+        private static ArrayList<String> messageRecipients = new ArrayList<>();
 
         /**
          * Constructor used to create a new message object.
@@ -187,7 +188,7 @@ public class Messages {
                 sentMessages.add(messageText);
                 messageHashes.add(messageHash);
                 messageIDs.add(messageID);
-                
+                messageRecipients.add(recipientCell);
                 
                 return "Message successfully sent.";
                 
@@ -198,6 +199,8 @@ public class Messages {
                 sendStatus = "Stored"; //Updates status to stored
                 messagesList.add(this); //Stored messages also count
                 
+                storedMessages.add(messageText);
+                messageRecipients.add(recipientCell);
                 messageHashes.add(messageHash);
                 messageIDs.add(messageID);
             
@@ -357,16 +360,83 @@ public class Messages {
          }
          
          public static String searchByMessageID(String id) {
-             return "Search by message ID feature coming soon.";
+             for (int i = 0; i < messageIDs.size(); i++) {
+                 
+                 if (messageIDs.get(i).equals(id)) {
+                     
+                     if (i < sentMessages.size()) {
+                         return sentMessages.get(i);
+                         
+                     }
+                     
+                     if (i < storedMessages.size()) {
+                         return storedMessages.get(i);
+                         
+                     }
+                 }
+             }
+              return "Message not found.";
              
          }
          
          public static String searchByRecipient(String recipient) {
-             return "Search by recipient feature coming soon.";
+             
+             StringBuilder results = new StringBuilder();
+             
+             for (int i = 0; i < messageRecipients.size(); i++) {
+                 
+                 if (messageRecipients.get(i).equals(recipient)) {
+                     
+                     if (i < sentMessages.size()) {
+                         results.append(sentMessages.get(i)).append("\n");
+                         
+                     }
+                     
+                     if (i < storedMessages.size()) {
+                         results.append(storedMessages.get(i)).append("\n");
+                         
+                     }
+                 }
+             }
+             
+             if (results.length() == 0) {
+                 return "No messages found for this recipient.";
+             }
+             
+             return results.toString();
          }
 
          public static String deleteByMessageHash(String hash) {
-             return "Delete by message hash feature coming soon.";
+             for (int i = 0; i < messageHashes.size(); i++) {
+                 
+                 if (messageHashes.get(i).equals(hash)) {
+                     
+                     String deletedMessage = "";
+                     
+                     if (i < sentMessages.size()) {
+                         deletedMessage = sentMessages.remove(i);
+                         
+                     }
+                     
+                     if (i < storedMessages.size()) {
+                         deletedMessage = storedMessages.remove(i);
+                         
+                     }
+                     messageHashes.remove(i);
+                     messageIDs.remove(i);
+                     
+                      if (i < messageRecipients.size()) {
+                          messageRecipients.remove(i);
+                          
+                      }
+                      
+                      return "Message: " + deletedMessage + " successfully deleted.";
+                      
+                 }
+             }
+             
+             return "Hash not found.";
+             
          }
 
          public static String displayFullReport() {
@@ -465,6 +535,11 @@ public class Messages {
          
      }
      
+     public static ArrayList<String> getMessageRecipients() {
+         
+         return messageRecipients;
+     }
+     
      public static void clearArrays() {
          
         sentMessages.clear();
@@ -473,6 +548,7 @@ public class Messages {
         messageHashes.clear();
         messageIDs.clear();
         messagesList.clear();
+        messageRecipients.clear();
         
      }
 }
