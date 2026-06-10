@@ -94,7 +94,7 @@ public class MainApp {
           }
           
             // Load stored messages from JSON before showing menu
-            Messages.loadStoredMessages();
+            //Messages.loadStoredMessages();
             
             
               //================Main Menu=========================
@@ -174,16 +174,17 @@ public class MainApp {
                          
                           String messageText;
 
-        while (true) {
-            System.out.print("Enter your message: ");
-            messageText = input.nextLine();
+                        while (true) {
+                        System.out.print("Enter your message: ");
+                        messageText = input.nextLine();
 
-            msg = new Messages(messageNumber, recipient, messageText);
+                        msg = new Messages(messageNumber, recipient, messageText);
 
-            String lengthResult = msg.checkMessageLength();
-            System.out.println(lengthResult);
+                        String lengthResult = msg.checkMessageLength();
+                        System.out.println(lengthResult);
 
-            if (lengthResult.equals("Message ready to send.")) {
+                        if (lengthResult.equals("Message ready to send.")) {
+                            
                 break;
         }
         }
@@ -241,6 +242,7 @@ public class MainApp {
                                  }
                                  
                                  System.out.println(result);
+                                 
                                 
                                  //For when option 3 is selected to disregard the message
                                  if (!msg.getSendStatus().equals("Disregarded")) {
@@ -281,6 +283,11 @@ public class MainApp {
                         
                         //Picking option 3 will show this message
                         System.out.println("Goodbye.");
+                        
+                        
+                        // Clear JSON file when exiting
+                        Messages.clearJsonFile();
+                        Messages.clearArrays();
                         
                         // Stops the while loop
                         running = false;

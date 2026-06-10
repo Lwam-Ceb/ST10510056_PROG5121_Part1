@@ -339,6 +339,22 @@ public class Messages {
 
     }
          
+         public static void clearJsonFile() {
+             try {
+                 
+                 FileWriter writer = new FileWriter("messages.json");
+                 
+                 writer.write(""); // clears all contents
+                 
+                 writer.close();
+                 
+             } catch (IOException e) {
+                 
+                 System.out.println("Error clearing JSON file: " + e.getMessage());
+                 
+             }
+         }
+         
          public static void loadStoredMessages() {
              
              try {
@@ -378,8 +394,16 @@ public class Messages {
              
              StringBuilder output = new StringBuilder();
              
-             for (String message : storedMessages) {
-                 output.append(message).append("\n");
+             output.append("=== STORED MESSAGES ===\n");
+             output.append("---------------------------------\n");
+             
+             for (int i = 0; i < storedMessages.size(); i++) {
+             output.append("Message ")
+              .append(i + 1)
+              .append(": ")
+              .append(storedMessages.get(i))
+              .append("\n");
+             output.append("---------------------------------\n");
                  
              }
              
@@ -475,12 +499,19 @@ public class Messages {
             
             report.append("=== SENT MESSAGE REPORT ===\n\n");
             
+            
             for (int i = 0; i < sentMessages.size(); i++) {
-                report.append("Message Hash: ") .append(messageHashes.get(i)) .append("\n");
+                report.append("Message Hash: ") 
+                    .append(messageHashes.get(i)) 
+                    .append("\n");
                 
-                report.append("Recipient: ") .append(messageRecipients.get(i)) .append("\n");
+                report.append("Recipient: ") 
+                    .append(messageRecipients.get(i)) 
+                    .append("\n");
                 
-                report.append("Message: ") .append(sentMessages.get(i)) .append("\n");
+                report.append("Message: ") 
+                    .append(sentMessages.get(i)) 
+                    .append("\n");
                 
                 report.append("---------------------------------\n");
 
