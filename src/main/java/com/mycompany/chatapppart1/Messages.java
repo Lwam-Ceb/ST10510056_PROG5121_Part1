@@ -484,7 +484,28 @@ public class Messages {
          }
 
          public static String displayFullReport() {
-             return printMessages();
+            if (sentMessages.isEmpty()) {
+                return "No sent messages available for report.";
+                
+            }
+            
+            StringBuilder report = new StringBuilder();
+            
+            
+            report.append("=== SENT MESSAGE REPORT ===\n\n");
+            
+            for (int i = 0; i < sentMessages.size(); i++) {
+                report.append("Message Hash: ") .append(messageHashes.get(i)) .append("\n");
+                
+                report.append("Recipient: ") .append(messageRecipients.get(i)) .append("\n");
+                
+                report.append("Message: ") .append(sentMessages.get(i)) .append("\n");
+                
+                report.append("---------------------------------\n");
+
+            }
+            
+            return report.toString();
     }
     // Getters
     /**
