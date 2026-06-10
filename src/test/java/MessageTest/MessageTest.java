@@ -25,10 +25,12 @@ import org.junit.jupiter.api.BeforeEach;
 public class MessageTest {
     
     //===== Part 3 =====
+    // Runs before each test to reset the arrays
+    // Then loads the POE test data into the message arrays
     @BeforeEach
     public void setup() {
         
-         Messages.clearArrays();
+         Messages.clearArrays();//Clears arrays before loading test data
          
          Messages msg1 = new Messages(1, "+27834557896", "Did you get the cake?");
          msg1.sentMessage("send");
@@ -151,63 +153,64 @@ public class MessageTest {
     }
     
     @Test
-    public void testSentMessagesArray_correctlyPopulated() {
+    public void testSentMessagesArray_correctlyPopulated() { // Tests that only messages marked as Sent are added to the sentMessages array
         
-        assertEquals(2, Messages.getSentMessages().size());
+        assertEquals(2, Messages.getSentMessages().size());//Checks that 2 messages were sent
         
-        assertTrue(Messages.getSentMessages().contains("Did you get the cake?"));
+        assertTrue(Messages.getSentMessages().contains("Did you get the cake?"));//Checks first sent message exists
         
-        assertTrue(Messages.getSentMessages().contains("It is dinner time!"));
-        
-    }
-    
-    @Test
-    public void testDisplayLongestMessage_returnsCorrectMessage() {
-        
-        String result = Messages.displayLongestMessage();
-        
-        assertTrue(result.contains("Where are you? You are late! I have asked you to be on time."));
+        assertTrue(Messages.getSentMessages().contains("It is dinner time!"));//Checks second sent message exists
         
     }
     
     @Test
-    public void testSearchByMessageID_returnsCorrectMessage() {
+    public void testDisplayLongestMessage_returnsCorrectMessage() {// Tests that the longest stored message is correctly returned
         
-        String messageFourID = Messages.getMessageIDs().get(2);
+        String result = Messages.displayLongestMessage();//Gets the longest stored message
         
-        String result = Messages.searchByMessageID(messageFourID);
+        assertTrue(result.contains("Where are you? You are late! I have asked you to be on time."));//Checks correct message is returned
+        
+    }
+    
+    @Test
+    public void testSearchByMessageID_returnsCorrectMessage() {// Tests that searching by message ID returns the correct message
+        
+        String messageFourID = Messages.getMessageIDs().get(2);//Gets ID of fourth test message
+        
+        String result = Messages.searchByMessageID(messageFourID);//Searches using message ID
         
         assertEquals("It is dinner time!", result);
         
     }
     
     @Test
-    public void testSearchByRecipient_returnsAllMatchingMessages() {
+    public void testSearchByRecipient_returnsAllMatchingMessages() {// Tests that searching by recipient returns all matching messages
         
-        String result = Messages.searchByRecipient("+27838884567");
+        String result = Messages.searchByRecipient("+27838884567");//Searches messages by recipient
         
-        assertTrue(result.contains("Where are you? You are late! I have asked you to be on time."));
+        assertTrue(result.contains("Where are you? You are late! I have asked you to be on time."));//Checks first matching message
         
         assertTrue(result.contains("Ok, I am leaving without you."));
 
     }
     
     @Test
-    public void testDeleteByHash_removesCorrectMessage() {
+    public void testDeleteByHash_removesCorrectMessage() {// Tests that deleting by hash removes the correct message
         
-        String messageTwoHash = Messages.getMessageHashes().get(1);
+        String messageTwoHash = Messages.getMessageHashes().get(1);//Gets hash of stored message
         
-        String result = Messages.deleteByMessageHash(messageTwoHash);
+        String result = Messages.deleteByMessageHash(messageTwoHash);//Deletes message using hash
         
         assertEquals("Message: Where are you? You are late! I have asked you to be on time. successfully deleted.", result);
         
     }
     
     @Test
-    public void testDisplayReport_containsRequiredFields() {
+    public void testDisplayReport_containsRequiredFields() {// Tests that the display report contains the required fields
         
         String report = Messages.displayFullReport();
         
+        //Checks report contains required fields and messages
         assertTrue(report.contains("Message Hash:"));
         assertTrue(report.contains("Recipient:"));
         assertTrue(report.contains("Message:"));

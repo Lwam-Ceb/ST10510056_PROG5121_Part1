@@ -94,6 +94,7 @@ public class MainApp {
           }
           
             // Load stored messages from JSON before showing menu
+            // It is currently commented out so only messages from the current run are shown
             //Messages.loadStoredMessages();
             
             
@@ -294,9 +295,10 @@ public class MainApp {
                     
                         break;   
                         
-                                           
+                    // Picking 4:                       
                     case 4:
                         
+                        // Shows the stored messages sub-menu
                         System.out.println("\n=== STORED MESSAGES MENU ===");
                         System.out.println("a. Display all stored messages");
                         System.out.println("b. Display longest message");
@@ -306,40 +308,42 @@ public class MainApp {
                         System.out.println("f. Display full report");
                         
                         System.out.print("Choose an option: ");
+                        
+                        // Stores the user's sub-menu choice
                         String storedChoice = input.nextLine();
                         
                         switch (storedChoice.toLowerCase()) {
                             
                             case "a":
-                                System.out.println(Messages.displayStoredMessages());
+                                System.out.println(Messages.displayStoredMessages());// Option a: Displays all stored messages
                         break;
                         
                             case "b":
-                                System.out.println(Messages.displayLongestMessage());
+                                System.out.println(Messages.displayLongestMessage());// Option b: Displays the longest stored message
                         
                         break;
                         
                             case "c":
                                 System.out.print("Enter message ID: ");
                                 String searchID = input.nextLine();
-                                System.out.println(Messages.searchByMessageID(searchID));
+                                System.out.println(Messages.searchByMessageID(searchID));// Option c: Searches for a message using its message ID
                         
                         break;
                         
                             case "d":
                                 System.out.print("Enter recipient number: ");
                                 String searchRecipient = input.nextLine();
-                                System.out.println(Messages.searchByRecipient(searchRecipient));
+                                System.out.println(Messages.searchByRecipient(searchRecipient));// Option d: Searches for messages by recipient number
                         break;
                         
                             case "e":
                                 System.out.print("Enter message hash: ");
                                 String deleteHash = input.nextLine();
-                                System.out.println(Messages.deleteByMessageHash(deleteHash));
+                                System.out.println(Messages.deleteByMessageHash(deleteHash));// Option e: Deletes a message using its message hash
                         break;
                         
                             case "f":
-                                System.out.println(Messages.displayFullReport());
+                                System.out.println(Messages.displayFullReport());// Option f: Displays the full sent message report
                                 
                         break;
                         

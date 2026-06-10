@@ -339,6 +339,12 @@ public class Messages {
 
     }
          
+         // ===== Part 3 Methods =====
+         
+         /**
+         * Clears the messages.json file when the application exits.
+         * This prevents old stored messages from appearing in the next run.
+         */
          public static void clearJsonFile() {
              try {
                  
@@ -355,6 +361,11 @@ public class Messages {
              }
          }
          
+         /**
+         * Reads stored messages from the messages.json file.
+         * Each line is converted back into a JSON object.
+         * The message details are added back into the arrays.
+         */
          public static void loadStoredMessages() {
              
              try {
@@ -385,7 +396,12 @@ public class Messages {
              }
          }
     
-         // ===== Part 3 Methods =====
+         
+         /**
+         * Displays all messages currently saved in the storedMessages array.
+         *
+         * @return formatted list of stored messages
+         */
          public static String displayStoredMessages() {
              if (storedMessages.isEmpty()) {
                  return "No stored messages available.";
@@ -411,6 +427,11 @@ public class Messages {
              
          }
          
+         /**
+         * Searches through stored messages and returns the longest message.
+         *
+         * @return the longest stored message
+         */
          public static String displayLongestMessage() {
              if (storedMessages.isEmpty()) {
                  
@@ -431,6 +452,12 @@ public class Messages {
              return "Longest stored message:\n" + longest;
          }
          
+         /**
+         * Searches for a message using its message ID.
+         *
+         * @param id message ID entered by the user
+         * @return matching message text or not found message
+         */
          public static String searchByMessageID(String id) {
              for (int i = 0; i < messageIDs.size(); i++) {
                      
@@ -443,6 +470,12 @@ public class Messages {
              
          }
          
+         /**
+         * Searches for all messages linked to a specific recipient.
+         *
+         * @param recipient recipient cellphone number entered by the user
+         * @return all matching messages
+         */
          public static String searchByRecipient(String recipient) {
              
              StringBuilder results = new StringBuilder();
@@ -462,9 +495,13 @@ public class Messages {
                  }
                 return results.toString();
              }
-             
-
-
+         
+         /**
+         * Deletes a message by matching its message hash.
+         *
+         * @param hash message hash entered by the user
+         * @return success or failure message
+         */
          public static String deleteByMessageHash(String hash) {
              for (int i = 0; i < messageHashes.size(); i++) {
                  
@@ -487,7 +524,13 @@ public class Messages {
              return "Hash not found.";
              
          }
-
+         
+         /**
+         * Displays a full report of all sent messages.
+         * Includes the message hash, recipient, and message text.
+         *
+         * @return formatted sent message report
+         */
          public static String displayFullReport() {
             if (sentMessages.isEmpty()) {
                 return "No sent messages available for report.";
