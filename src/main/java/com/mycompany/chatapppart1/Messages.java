@@ -172,7 +172,7 @@ public class Messages {
          * @return status message
          */
         public String sentMessage(String option) {
-            
+                
             // Convert user choice to lowercase
             switch (option.toLowerCase()) {
                 
@@ -198,7 +198,6 @@ public class Messages {
                 sendStatus = "Stored"; //Updates status to stored
                 messagesList.add(this); //Stored messages also count
                 
-                // Hash and ID still get added
                 messageHashes.add(messageHash);
                 messageIDs.add(messageID);
             
@@ -331,6 +330,33 @@ public class Messages {
 
     }
     
+         // ===== Part 3 Methods =====
+         public static String displayStoredMessages() {
+             return "Display all stored messages feature coming soon.";
+             
+         }
+         
+         public static String displayLongestMessage() {
+             return "Display longest message feature coming soon.";
+             
+         }
+         
+         public static String searchByMessageID(String id) {
+             return "Search by message ID feature coming soon.";
+             
+         }
+         
+         public static String searchByRecipient(String recipient) {
+             return "Search by recipient feature coming soon.";
+         }
+
+         public static String deleteByMessageHash(String hash) {
+             return "Delete by message hash feature coming soon.";
+         }
+
+         public static String displayFullReport() {
+             return printMessages();
+    }
     // Getters
     /**
      * Returns the generated message ID.
@@ -393,5 +419,45 @@ public class Messages {
          return sendStatus;
      }
     
+     // POE Array Getters
+     public static ArrayList<String> getSentMessages() {
+         
+         return sentMessages;
+         
+     }
     
+     public static ArrayList<String> getDisregardedMessages() {
+         
+         return disregardedMessages;
+         
+     }
+     
+     public static ArrayList<String> getStoredMessages() {
+         
+         return storedMessages;
+         
+     }
+     
+     public static ArrayList<String> getMessageHashes() {
+         
+         return messageHashes;
+         
+     }
+     
+     public static ArrayList<String> getMessageIDs() {
+         
+         return messageIDs;
+         
+     }
+     
+     public static void clearArrays() {
+         
+        sentMessages.clear();
+        disregardedMessages.clear();
+        storedMessages.clear();
+        messageHashes.clear();
+        messageIDs.clear();
+        messagesList.clear();
+        
+     }
 }
