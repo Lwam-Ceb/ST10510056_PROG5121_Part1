@@ -7,6 +7,7 @@ package MessageTest;
 import org.junit.jupiter.api.Test;
 import com.mycompany.chatapppart1.Messages;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  *
@@ -23,6 +24,27 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class MessageTest {
     
+    //===== Part 3 =====
+    @BeforeEach
+    public void setup() {
+        
+         Messages.clearArrays();
+         
+         Messages msg1 = new Messages(1, "+27834557896", "Did you get the cake?");
+         msg1.sentMessage("send");
+         
+         Messages msg2 = new Messages(2, "+27838884567", "Where are you? You are late! I have asked you to be on time.");
+         msg2.sentMessage("store");
+         
+         Messages msg3 = new Messages(3, "+27834484567", "Yohoooo, I am at your gate.");
+         msg3.sentMessage("disregard");
+         
+         Messages msg4 = new Messages(4, "0838884567", "It is dinner time!");
+         msg4.sentMessage("send");
+         
+         Messages msg5 = new Messages(5, "+27838884567", "Ok, I am leaving without you.");
+         msg5.sentMessage("store");
+    }
     
     @Test
     public void testMessageLengthValid() { //Testing messages under 250 characters
@@ -126,6 +148,71 @@ public class MessageTest {
         
         assertEquals("Message successfully stored.", result);//Shows the results of the message being stored
         
+    }
+    
+    @Test
+    public void testSentMessagesArray_correctlyPopulated() {
+        
+        assertEquals(2, Messages.getSentMessages().size());
+        
+        assertTrue(Messages.getSentMessages().contains("Did you get the cake?"));
+        
+        assertTrue(Messages.getSentMessages().contains("It is dinner time!"));
+        
+    }
+    
+    @Test
+    public void testDisplayLongestMessage_returnsCorrectMessage() {
+        
+        String result = Messages.displayLongestMessage();
+        
+        assertTrue(result.contains("Where are you? You are late! I have asked you to be on time."));
+        
+    }
+    
+    @Test
+    public void testSearchByMessageID_returnsCorrectMessage() {
+        
+        String messageFourID = Messages.getMessageIDs().get(2);
+        
+        String result = Messages.searchByMessageID(messageFourID);
+        
+        assertEquals("It is dinner time!", result);
+        
+    }
+    
+    @Test
+    public void testSearchByRecipient_returnsAllMatchingMessages() {
+        
+        String result = Messages.searchByRecipient("+27838884567");
+        
+        assertTrue(result.contains("Where are you? You are late! I have asked you to be on time."));
+        
+        assertTrue(result.contains("Ok, I am leaving without you."));
+
+    }
+    
+    @Test
+    public void testDeleteByHash_removesCorrectMessage() {
+        
+        String messageTwoHash = Messages.getMessageHashes().get(1);
+        
+        String result = Messages.deleteByMessageHash(messageTwoHash);
+        
+        assertEquals("Message: Where are you? You are late! I have asked you to be on time. successfully deleted.", result);
+        
+    }
+    
+    @Test
+    public void testDisplayReport_containsRequiredFields() {
+        
+        String report = Messages.displayFullReport();
+        
+        assertTrue(report.contains("Message Hash:"));
+        assertTrue(report.contains("Recipient:"));
+        assertTrue(report.contains("Message:"));
+        assertTrue(report.contains("Did you get the cake?"));
+        assertTrue(report.contains("It is dinner time!"));
     }
 
 }

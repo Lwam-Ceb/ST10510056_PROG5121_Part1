@@ -38,6 +38,7 @@ public class Messages {
         private static ArrayList<String> messageHashes = new ArrayList<>();
         private static ArrayList<String> messageIDs = new ArrayList<>();
         private static ArrayList<String> messageRecipients = new ArrayList<>();
+        private static ArrayList<String> allMessages = new ArrayList<>();
 
         /**
          * Constructor used to create a new message object.
@@ -192,6 +193,7 @@ public class Messages {
                 messageHashes.add(messageHash);
                 messageIDs.add(messageID);
                 messageRecipients.add(recipientCell);
+                allMessages.add(messageText);
                 
                 return "Message successfully sent.";
                 
@@ -206,6 +208,7 @@ public class Messages {
                 messageRecipients.add(recipientCell);
                 messageHashes.add(messageHash);
                 messageIDs.add(messageID);
+                allMessages.add(messageText);
             
                 storeMessage();// Stores message to the JSon file
                 
@@ -356,6 +359,7 @@ public class Messages {
                     messageRecipients.add(recipient);
                     messageHashes.add(messageHash);
                     messageIDs.add(messageID);
+                    allMessages.add(message);
                  }
                  
                   reader.close();
@@ -405,18 +409,10 @@ public class Messages {
          
          public static String searchByMessageID(String id) {
              for (int i = 0; i < messageIDs.size(); i++) {
-                 
-                 if (messageIDs.get(i).equals(id)) {
                      
-                     if (i < sentMessages.size()) {
-                         return sentMessages.get(i);
-                         
-                     }
-                     
-                     if (i < storedMessages.size()) {
-                         return storedMessages.get(i);
-                         
-                     }
+                     if (messageIDs.get(i).equals(id)) {
+                         return allMessages.get(i);
+                                               
                  }
              }
               return "Message not found.";
@@ -430,51 +426,36 @@ public class Messages {
              for (int i = 0; i < messageRecipients.size(); i++) {
                  
                  if (messageRecipients.get(i).equals(recipient)) {
-                     
-                     if (i < sentMessages.size()) {
-                         results.append(sentMessages.get(i)).append("\n");
+                    results.append(allMessages.get(i)).append("\n");
                          
                      }
                      
-                     if (i < storedMessages.size()) {
-                         results.append(storedMessages.get(i)).append("\n");
-                         
                      }
+                if (results.length() == 0) {
+                    
+                     return "No messages found for this recipient.";
+                     
                  }
+                return results.toString();
              }
              
-             if (results.length() == 0) {
-                 return "No messages found for this recipient.";
-             }
-             
-             return results.toString();
-         }
+
 
          public static String deleteByMessageHash(String hash) {
              for (int i = 0; i < messageHashes.size(); i++) {
                  
                  if (messageHashes.get(i).equals(hash)) {
                      
-                     String deletedMessage = "";
+                     String deletedMessage = allMessages.remove(i);
                      
-                     if (i < sentMessages.size()) {
-                         deletedMessage = sentMessages.remove(i);
-                         
-                     }
-                     
-                     if (i < storedMessages.size()) {
-                         deletedMessage = storedMessages.remove(i);
-                         
-                     }
                      messageHashes.remove(i);
                      messageIDs.remove(i);
+                     messageRecipients.remove(i);
                      
-                      if (i < messageRecipients.size()) {
-                          messageRecipients.remove(i);
-                          
-                      }
-                      
-                      return "Message: " + deletedMessage + " successfully deleted.";
+                     sentMessages.remove(deletedMessage);
+                     storedMessages.remove(deletedMessage);
+                     
+                     return "Message: " + deletedMessage + " successfully deleted.";
                       
                  }
              }
@@ -614,6 +595,7 @@ public class Messages {
         messageIDs.clear();
         messagesList.clear();
         messageRecipients.clear();
+        allMessages.clear();
         
      }
 }
