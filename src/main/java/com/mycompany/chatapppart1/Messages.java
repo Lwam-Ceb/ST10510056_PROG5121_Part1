@@ -11,7 +11,7 @@ import java.util.Random;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileNotFoundException;
+
 /**
  * Messages class: represents a single chat message in the application
  * Handles message creation, validation, hashing, sending, printing
