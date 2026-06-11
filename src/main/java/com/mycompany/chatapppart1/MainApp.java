@@ -30,7 +30,7 @@ public class MainApp {
           System.out.print("Enter a username (Should contain a _ and must be a maximum of 5 characters) ");
           String username = input.nextLine();
           
-          System.out.print("Enter a password (Must be a minimum of 8 characters, include 1 uppdercase, 1 number and 1 special character)");
+          System.out.print("Enter a password (Must be a minimum of 8 characters, include 1 uppdercase, 1 number and 1 special character) ");
           String password = input.nextLine();
           
           //Calls up the registerUser method and stores message it returns
