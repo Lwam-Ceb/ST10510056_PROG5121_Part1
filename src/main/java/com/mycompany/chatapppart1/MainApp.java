@@ -94,8 +94,7 @@ public class MainApp {
           }
           
             // Load stored messages from JSON before showing menu
-            // It is currently commented out so only messages from the current run are shown
-            //Messages.loadStoredMessages();
+            Messages.loadStoredMessages();
             
             
               //================Main Menu=========================
@@ -284,11 +283,6 @@ public class MainApp {
                         
                         //Picking option 3 will show this message
                         System.out.println("Goodbye.");
-                        
-                        
-                        // Clear JSON file when exiting
-                        Messages.clearJsonFile();
-                        Messages.clearArrays();
                         
                         // Stops the while loop
                         running = false;

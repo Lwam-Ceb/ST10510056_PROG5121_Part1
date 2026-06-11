@@ -342,8 +342,8 @@ public class Messages {
          // ===== Part 3 Methods =====
          
          /**
-         * Clears the messages.json file when the application exits.
-         * This prevents old stored messages from appearing in the next run.
+         * Clears the messages.json file when called.
+         * This can be used if the stored messages file needs to be reset.
          */
          public static void clearJsonFile() {
              try {
